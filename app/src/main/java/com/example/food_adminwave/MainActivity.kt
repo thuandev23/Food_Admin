@@ -22,5 +22,21 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AllItemActivity::class.java)
             startActivity(intent)
         }
+        binding.outForDelivery.setOnClickListener {
+            val intent = Intent(this, OutForDeliveryActivity::class.java)
+            startActivity(intent)
+        }
+        binding.profile.setOnClickListener {
+            val intent = Intent(this, AdminProfileActivity::class.java)
+            startActivity(intent)
+        }
+        binding.addNewUser.setOnClickListener {
+            val intent = Intent(this, CreateNewUserActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnPending.setOnClickListener {
+            val intent = Intent(this, PendingItemActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

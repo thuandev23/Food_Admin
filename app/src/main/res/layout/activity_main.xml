@@ -71,13 +71,13 @@
                 android:id="@id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="@+id/btnPending"
+                app:layout_constraintStart_toStartOf="@+id/btnPending"
                 app:layout_constraintTop_toTopOf="@+id/guideline1"
                 app:srcCompat="@drawable/attantion" />
 
             <TextView
-                android:id="@id/textView8"
+                android:id="@id/btnPending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -97,9 +97,9 @@
                 android:text="30"
                 android:textColor="@color/red"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintEnd_toEndOf="@+id/btnPending"
+                app:layout_constraintStart_toStartOf="@+id/btnPending"
+                app:layout_constraintTop_toBottomOf="@+id/btnPending" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -121,7 +121,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintStart_toEndOf="@+id/btnPending"
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
             <TextView
@@ -265,6 +265,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView1">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/greencard">
@@ -308,6 +309,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardView3"
         app:layout_constraintTop_toBottomOf="@+id/cardView2">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addNewUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/greencard">
@@ -349,6 +351,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView3">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/outForDelivery"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/greencard">
@@ -392,6 +395,7 @@
         app:layout_constraintStart_toEndOf="@+id/cardView5"
         app:layout_constraintTop_toBottomOf="@+id/cardView4">
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/logOut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/greencard">
