@@ -94,7 +94,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress1"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <EditText
-        android:id="@+id/editTextNameofRestaurant"
+        android:id="@+id/nameRestaurant"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -125,12 +125,12 @@
         android:fontFamily="@font/lato"
         android:hint="Name of Restaurant "
         android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress1" />
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -145,10 +145,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNameofRestaurant" />
+        app:layout_constraintTop_toBottomOf="@+id/nameRestaurant" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -162,9 +162,9 @@
         android:fontFamily="@font/lato"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCreateAcc"
@@ -178,7 +178,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/txtHasAcc"
