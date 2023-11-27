@@ -44,7 +44,7 @@
                 app:srcCompat="@drawable/arrow_left" />
 
             <EditText
-                android:id="@+id/addItemName"
+                android:id="@+id/addFoodName"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="8dp"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@id/textView12" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/addFoodPrice"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="8dp"
@@ -79,7 +79,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addItemName" />
+                app:layout_constraintTop_toBottomOf="@id/addFoodName" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -97,9 +97,9 @@
                 android:paddingRight="10dp"
                 android:text="Add item image"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
+                app:layout_constraintEnd_toEndOf="@+id/addFoodPrice"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/addFoodPrice" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView7"
@@ -139,15 +139,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardView7" />
 
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/addFoodDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
-                android:text="Add description item"
-                android:textColor="@color/black"
                 android:fontFamily="@font/lato"
+                android:hint="Add here description"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@id/textView14" />
 
@@ -168,18 +168,18 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/description"/>
+                app:layout_constraintTop_toBottomOf="@id/addFoodDescription"/>
 
             <EditText
-                android:id="@+id/ingredients"
+                android:id="@+id/addFoodIngredients"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/white"
-                android:text="Add ingredients item"
-                android:textColor="@color/black"
                 android:fontFamily="@font/lato"
+                android:hint="Add here ingredients"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/textView15"
                 app:layout_constraintTop_toBottomOf="@id/textView15" />
 
@@ -198,7 +198,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+                app:layout_constraintTop_toBottomOf="@+id/addFoodIngredients" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

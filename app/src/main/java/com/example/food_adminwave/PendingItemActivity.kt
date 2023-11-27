@@ -3,7 +3,6 @@ package com.example.food_adminwave
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.food_adminwave.adapter.AddItemAdapter
 import com.example.food_adminwave.adapter.PendingItemAdapter
 import com.example.food_adminwave.databinding.ActivityPendingItemBinding
 
