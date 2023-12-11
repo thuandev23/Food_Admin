@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.food_adminwave.databinding.DeliveyItemBinding
 
-class DeliveryAdapter(private val customerNames: ArrayList<String>, private val paymentStatus:ArrayList<String>):RecyclerView.Adapter<DeliveryAdapter.DeliveryViewHolder>() {
+class DeliveryAdapter(private val customerNames: MutableList<String>, private val paymentStatus:MutableList<Boolean>):RecyclerView.Adapter<DeliveryAdapter.DeliveryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveryViewHolder {
         val binding = DeliveyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,9 +23,13 @@ class DeliveryAdapter(private val customerNames: ArrayList<String>, private val 
         fun bind(position: Int) {
             binding.apply {
                 customerName.text = customerNames[position]
-                payment.text = paymentStatus[position]
+                if (paymentStatus[position] == true){
+                    payment.text = "Received"
+                }else{
+                    payment.text = "Not Received"
+                }
                 val colorMap = mapOf(
-                    "received" to Color.GREEN, "notReceived" to Color.RED,  "Pending" to Color.GRAY,
+                    true to Color.GREEN, false to Color.RED
                 )
                 payment.setTextColor(colorMap[paymentStatus[position]]?:Color.BLACK)
                 cardViewDelivery.backgroundTintList = ColorStateList.valueOf(colorMap[paymentStatus[position]]?:Color.BLACK)

@@ -4,6 +4,7 @@ import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -22,6 +23,7 @@ class SignActivity : AppCompatActivity() {
     private lateinit var password: String
     private lateinit var userName: String
     private lateinit var nameOfRestaurant: String
+    private lateinit var address:String
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
@@ -38,15 +40,19 @@ class SignActivity : AppCompatActivity() {
         // initialize Firebase Database
         database = Firebase.database.reference
 
-
+        var isPasswordVisible = false
+        binding.showPassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            togglePasswordVisibility(isPasswordVisible)
+        }
         binding.btnCreateAcc.setOnClickListener {
             // get text form edittext
             userName = binding.name.text.toString().trim()
             nameOfRestaurant = binding.nameRestaurant.text.toString().trim()
             email = binding.email.text.toString().trim()
             password = binding.password.text.toString().trim()
-
-            if (userName.isBlank() || nameOfRestaurant.isBlank() || email.isBlank() || password.isBlank()) {
+            address = binding.address.text.toString()
+            if (userName.isBlank() || nameOfRestaurant.isBlank() || email.isBlank() || password.isBlank() || address.isBlank()) {
                 Toast.makeText(this, "Please fill all details", Toast.LENGTH_SHORT).show()
             } else {
                 createNewAccount(email, password)
@@ -56,21 +62,15 @@ class SignActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-
-        val locationList = arrayOf(
-            "Location 1",
-            "Location 2",
-            "Location 3",
-            "Location 4",
-            "Location 5",
-            "Location 6"
-        )
-        val adapter = ArrayAdapter(this, R.layout.simple_list_item_1, locationList)
-        val autoCompleteTextView = binding.listOfLocation
-        autoCompleteTextView.setAdapter(adapter)
-
     }
-
+    private fun togglePasswordVisibility(passwordVisible: Boolean) {
+        if (passwordVisible){
+            binding.password.transformationMethod = null
+        }
+        else{
+            binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+        }
+    }
     private fun createNewAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -80,7 +80,7 @@ class SignActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this, "Account created failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Account created failed: ${task.exception}", Toast.LENGTH_SHORT).show()
                 Log.d("Account", "createNewAccount: Failed", task.exception)
             }
         }
@@ -93,8 +93,8 @@ class SignActivity : AppCompatActivity() {
         nameOfRestaurant = binding.nameRestaurant.text.toString().trim()
         email = binding.email.text.toString().trim()
         password = binding.password.text.toString().trim()
-
-        val user = UserModel(userName, nameOfRestaurant, email, password)
+        address = binding.address.text.toString()
+        val user = UserModel(userName, nameOfRestaurant, email, password, address)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         database.child("user").child(userId).setValue(user)
     }

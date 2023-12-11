@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ExpandableListView.OnChildClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.food_adminwave.databinding.ItemAllItemBinding
@@ -13,7 +14,8 @@ import com.google.firebase.database.DatabaseReference
 class MenuItemAdapter(
     private val context: Context,
     private val menuList: ArrayList<AllItemMenu>,
-    databaseReference: DatabaseReference
+    databaseReference: DatabaseReference,
+    private val onDeleteClickListener:(position :Int) -> Unit
 ):RecyclerView.Adapter<MenuItemAdapter.AddItemViewHolder>() {
     private val itemQuantities = IntArray(menuList.size) { 1 }
     override fun onCreateViewHolder(
@@ -42,7 +44,7 @@ class MenuItemAdapter(
                 countItemCart.text = quantity.toString()
 
                 btnMinusCart.setOnClickListener {
-                    decreaseQuantity(position)
+                    onDeleteClickListener(position)
                 }
 
                 btnPlusCart.setOnClickListener {

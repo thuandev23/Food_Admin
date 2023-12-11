@@ -90,11 +90,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
             <TextView
+                android:id="@+id/pendingOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="30"
+                android:text="0"
                 android:textColor="@color/red"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/btnPending"
@@ -125,10 +126,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
             <TextView
+                android:id="@+id/completeOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_bold"
-                android:text="30"
+                android:text="0"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView10"
@@ -158,10 +160,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
             <TextView
+                android:id="@+id/totalPay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_bold"
-                android:text="30$"
+                android:text="00000000$"
                 android:textColor="@color/iconColor"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView11"

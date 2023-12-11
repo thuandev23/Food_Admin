@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
@@ -57,16 +58,31 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLoginWithGoogle.setOnClickListener {
-            val signIntent = googleSignInClient.signInIntent
-            launcher.launch(signIntent)
+//            val signIntent = googleSignInClient.signInIntent
+//            launcher.launch(signIntent)
+            Toast.makeText(this, "Has locked this function. Please login with another account !", Toast.LENGTH_SHORT).show()
         }
-
+        binding.btnLoginWithFB.setOnClickListener {
+            Toast.makeText(this, "Has locked this function. Please login with another account !", Toast.LENGTH_SHORT).show()
+        }
         binding.txtDontHaveAcc.setOnClickListener {
             val intent = Intent(this, SignActivity::class.java)
             startActivity(intent)
         }
+        var isPasswordVisible = false
+        binding.showPassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            togglePasswordVisibility(isPasswordVisible)
+        }
     }
-
+    private fun togglePasswordVisibility(passwordVisible: Boolean) {
+        if (passwordVisible){
+            binding.password.transformationMethod = null
+        }
+        else{
+            binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
+        }
+    }
     private fun loginUser(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -80,16 +96,6 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 Log.d("Account", "createUserAccount", task.exception)
-                /*auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        saveUserData()
-                        updateUI(user)
-                    } else {
-                        Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
-                        Log.d("Account", "createUserAccount", task.exception)
-                    }
-                }*/
             }
         }
     }
@@ -111,8 +117,8 @@ class LoginActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 if (task.isSuccessful) {
-                    val account: GoogleSignInAccount = task.result
-                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    val account: GoogleSignInAccount ?= task.result
+                    val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
                     auth.signInWithCredential(credential).addOnCompleteListener { authTask ->
                         if (authTask.isSuccessful) {
                             //successfully signIn google
@@ -121,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
                                 "Successfully SignIn With Google",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            updateUI(authTask.result?.user)
+                            startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
                             Toast.makeText(this, "Google SignIn failed: ${authTask.exception?.message}", Toast.LENGTH_SHORT).show()

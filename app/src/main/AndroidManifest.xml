@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Food_AdminWave"
         tools:targetApi="31">
         <activity
+            android:name=".OrderDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".PendingItemActivity"
             android:exported="false" />
         <activity
@@ -47,9 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

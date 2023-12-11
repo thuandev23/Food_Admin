@@ -89,7 +89,6 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/edittextshape"
-                android:drawableRight="@drawable/pluse_round"
                 android:elevation="5dp"
                 android:fontFamily="@font/yeon_sung"
                 android:gravity="center_vertical"
