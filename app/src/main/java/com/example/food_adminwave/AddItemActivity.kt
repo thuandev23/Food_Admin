@@ -88,14 +88,13 @@ class AddItemActivity : AppCompatActivity() {
                             menuRef.child(newItemKey).setValue(it).addOnSuccessListener {
                                 Toast.makeText(this, "Data upload successfully", Toast.LENGTH_SHORT)
                                     .show()
+                            }.addOnFailureListener {
+                                Toast.makeText(
+                                    this,
+                                    "Data upload failed: ${it.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-                                .addOnFailureListener {
-                                    Toast.makeText(
-                                        this,
-                                        "Data upload failed: ${it.message}",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
                         }
                     } else {
                         Toast.makeText(this, "Failed to generate a unique key", Toast.LENGTH_SHORT)

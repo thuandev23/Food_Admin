@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateNewUserActivity">
+
     <ImageView
         android:id="@+id/imgBtnBack"
         android:layout_width="35dp"
@@ -14,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrow_left" />
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="100dp"
@@ -51,55 +53,58 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/editTextTextName"
-        android:layout_width="340dp"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
         android:layout_height="57dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edittextshape"
-        android:drawableLeft="@drawable/user"
+        android:drawableLeft="@drawable/home"
         android:drawablePadding="15dp"
-        android:elevation="5dp"
         android:ems="10"
         android:fontFamily="@font/lato"
-        android:hint="Name"
-        android:inputType="textEmailAddress"
+        android:hint="Name "
+        android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress1"
-        android:layout_width="340dp"
+        android:id="@+id/email"
+        android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edittextshape"
         android:drawableLeft="@drawable/mail"
         android:drawablePadding="15dp"
-        android:elevation="5dp"
         android:ems="10"
         android:fontFamily="@font/lato"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="340dp"
+        android:id="@+id/password"
+        android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edittextshape"
         android:drawableLeft="@drawable/lock"
         android:drawablePadding="15dp"
-        android:elevation="5dp"
         android:ems="10"
         android:fontFamily="@font/lato"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress1" />
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <ImageView
         android:id="@+id/showPassword"
@@ -107,9 +112,13 @@
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:src="@drawable/eye"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextPassword" />
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password" />
+
+
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCreateNewUser"
         android:layout_width="152dp"
@@ -120,9 +129,10 @@
         android:paddingLeft="15dp"
         android:text="Create New User"
         android:textColor="#FFFFFF"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/textView11"
@@ -135,4 +145,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

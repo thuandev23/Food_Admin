@@ -34,11 +34,11 @@ class OutForDeliveryActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         val completedReference =
             database.reference.child("CompletedOrder").orderByChild("currentTime")
-        completedReference.addListenerForSingleValueEvent(object :ValueEventListener{
+        completedReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                    listOfCompleteOrderList.clear()
-                for (completeSnapshot in snapshot.children){
+                listOfCompleteOrderList.clear()
+                for (completeSnapshot in snapshot.children) {
                     val completeOrder = completeSnapshot.getValue(OrderDetails::class.java)
                     completeOrder?.let {
                         listOfCompleteOrderList.add(it)
@@ -59,8 +59,8 @@ class OutForDeliveryActivity : AppCompatActivity() {
     private fun setDataIntoRecyclerView() {
 // Initialization list to hold customers name and payment status
         val customerName = mutableListOf<String>()
-        val moneyStatus = mutableListOf<Boolean >()
-        for (order in listOfCompleteOrderList){
+        val moneyStatus = mutableListOf<Boolean>()
+        for (order in listOfCompleteOrderList) {
             order.userName?.let {
                 customerName.add(it)
             }

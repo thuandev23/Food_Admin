@@ -41,16 +41,6 @@ class MenuItemAdapter(
                 cartFoodName.text = menuItem.foodName
                 cartPrice.text = menuItem.foodPrice
                 Glide.with(context).load(uri).into(imageFoodCart)
-                countItemCart.text = quantity.toString()
-
-                btnMinusCart.setOnClickListener {
-                    onDeleteClickListener(position)
-                }
-
-                btnPlusCart.setOnClickListener {
-                    increaseQuantity(position)
-                }
-
                 btnDeleteTrashCart.setOnClickListener {
                     val itemPosition = adapterPosition
                     if (itemPosition != RecyclerView.NO_POSITION) {
@@ -68,20 +58,5 @@ class MenuItemAdapter(
             notifyItemRemoved(itemPosition)
             notifyItemRangeChanged(itemPosition, menuList.size)
         }
-
-        private fun increaseQuantity(position: Int) {
-            if (itemQuantities[position]<10){
-                itemQuantities[position]++
-                binding.countItemCart.text = itemQuantities[position].toString()
-            }
-        }
-
-        private fun decreaseQuantity(position: Int) {
-            if(itemQuantities[position] >1){
-                itemQuantities[position]--
-                binding.countItemCart.text = itemQuantities[position].toString()
-            }
-        }
-
     }
 }

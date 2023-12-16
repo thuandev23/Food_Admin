@@ -37,7 +37,7 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
     }
 
     private fun getOrderDatails() {
-        databaseOrderDetails.addListenerForSingleValueEvent(object : ValueEventListener {
+        databaseOrderDetails.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (orderSnapshot in snapshot.children) {
                     val orderDetails = orderSnapshot.getValue(OrderDetails::class.java)

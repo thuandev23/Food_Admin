@@ -3,6 +3,7 @@ package com.example.food_adminwave
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.food_adminwave.databinding.ActivityMainBinding
 import com.example.food_adminwave.model.OrderDetails
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AllItemActivity::class.java)
             startActivity(intent)
         }
+        binding.addDiscount.setOnClickListener {
+            val intent = Intent(this, AddItemVoucherActivity::class.java)
+            startActivity(intent)
+        }
+        binding.allDiscount.setOnClickListener {
+            val intent = Intent(this, AllVoucherActivity::class.java)
+            startActivity(intent)
+        }
         binding.outForDelivery.setOnClickListener {
             val intent = Intent(this, OutForDeliveryActivity::class.java)
             startActivity(intent)
@@ -54,12 +63,10 @@ class MainActivity : AppCompatActivity() {
                 auth.addAuthStateListener { firebaseAuth ->
                     if (firebaseAuth.currentUser == null) {
                         startActivity(Intent(this, LoginActivity::class.java))
-                        finish()
                     }
                 }
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
-                finish()
             }
         }
         pendingOrders()
@@ -70,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun wholeTimeEarning() {
         var listTotalPay = mutableListOf<Int>()
         completeOrderReference = FirebaseDatabase.getInstance().reference.child("CompletedOrder")
-        completeOrderReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        completeOrderReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (order in snapshot.children) {
                     var completeOrder = order.getValue(OrderDetails::class.java)
@@ -93,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         var completeOrderReference = database.reference.child("CompletedOrder")
         var completeOrderItemCount = 0
-        completeOrderReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        completeOrderReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 completeOrderItemCount = snapshot.childrenCount.toInt()
                 binding.completeOrders.text = completeOrderItemCount.toString()
@@ -110,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         var pendingOrderReference = database.reference.child("OrderDetails")
         var pendingOrderItemCount = 0
-        pendingOrderReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        pendingOrderReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 pendingOrderItemCount = snapshot.childrenCount.toInt()
                 binding.pendingOrders.text = pendingOrderItemCount.toString()
