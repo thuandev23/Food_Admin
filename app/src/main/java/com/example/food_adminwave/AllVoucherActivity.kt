@@ -68,7 +68,7 @@ class AllVoucherActivity : AppCompatActivity() {
     private fun deleteVoucher(position: Int) {
         val voucherItemDelede = voucherItems[position]
         val voucherKey = voucherItemDelede.id
-        val foodMenuReference = database.reference.child("menu").child(voucherKey!!)
+        val foodMenuReference = database.reference.child("voucher").child(voucherKey!!)
         foodMenuReference.removeValue().addOnCompleteListener{
                 task ->
             if (task.isSuccessful){

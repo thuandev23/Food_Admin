@@ -19,9 +19,10 @@ class AllItemActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private var menuItems: ArrayList<AllItemMenu> = ArrayList()
 
-    private val binding : ActivityAllItemBinding by lazy {
+    private val binding: ActivityAllItemBinding by lazy {
         ActivityAllItemBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -34,17 +35,13 @@ class AllItemActivity : AppCompatActivity() {
     }
 
     private fun retrieveMenuItem() {
-        database= FirebaseDatabase.getInstance()
+        database = FirebaseDatabase.getInstance()
         val foodRef: DatabaseReference = database.reference.child("menu")
-
-        //fetch data in firebase database
-        foodRef.addListenerForSingleValueEvent(object: ValueEventListener{
+        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // Clear existing data before populating
                 menuItems.clear()
 
-                //loop for through each food items
-                for(foodSnapshot in snapshot.children){
+                for (foodSnapshot in snapshot.children) {
                     val menuItem = foodSnapshot.getValue(AllItemMenu::class.java)
                     menuItem?.let {
                         menuItems.add(it)
@@ -60,9 +57,10 @@ class AllItemActivity : AppCompatActivity() {
     }
 
     private fun setAdapter() {
-        val adapter = MenuItemAdapter(this@AllItemActivity, menuItems, databaseReference){
-            position -> deleteMenuItems(position)
-        }
+        val adapter =
+            MenuItemAdapter(this@AllItemActivity, menuItems, databaseReference) { position ->
+                deleteMenuItems(position)
+            }
         binding.menuAllItemRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.menuAllItemRecyclerView.adapter = adapter
     }
@@ -71,15 +69,13 @@ class AllItemActivity : AppCompatActivity() {
         val menuItemDelete = menuItems[position]
         val menuItemKey = menuItemDelete.key
         val foodMenuReference = database.reference.child("menu").child(menuItemKey!!)
-        foodMenuReference.removeValue().addOnCompleteListener{
-            task ->
-            if (task.isSuccessful){
+        foodMenuReference.removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
                 menuItems.removeAt(position)
                 binding.menuAllItemRecyclerView.adapter?.notifyItemRemoved(position)
-            }
-            else{
+            } else {
                 Toast.makeText(this, "item not Deleted", Toast.LENGTH_SHORT).show()
             }
-        }.addOnFailureListener {  }
+        }.addOnFailureListener { }
     }
 }

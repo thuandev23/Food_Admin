@@ -52,6 +52,7 @@ class AddItemActivity : AppCompatActivity() {
             if (!(foodName.isBlank() || foodPrice.isBlank() || foodDescription.isBlank() || foodIngredient.isBlank())) {
                 uploadData()
                 Toast.makeText(this, "Item added successfully", Toast.LENGTH_SHORT).show()
+                finish()
             } else {
                 Toast.makeText(this, "Please fill all details", Toast.LENGTH_SHORT).show()
             }
@@ -105,6 +106,8 @@ class AddItemActivity : AppCompatActivity() {
             }.addOnFailureListener {
                 Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show()
             }
+        } else {
+            Toast.makeText(this, "There is no product photo", Toast.LENGTH_SHORT).show()
         }
     }
 
