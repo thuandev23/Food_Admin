@@ -25,6 +25,7 @@ class AdminProfileActivity : AppCompatActivity() {
     private val binding: ActivityAdminProfileBinding by lazy {
         ActivityAdminProfileBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -45,20 +46,22 @@ class AdminProfileActivity : AppCompatActivity() {
 
         binding.name.isEnabled = false
         binding.address.isEnabled = false
+        binding.nameRestaurant.isEnabled = false
         binding.email.isEnabled = false
         binding.phone.isEnabled = false
         binding.password.isEnabled = false
         binding.showPassword.isEnabled = false
         var isEnable = false
         binding.clickEditButton.setOnClickListener {
-            isEnable =! isEnable
+            isEnable = !isEnable
             binding.name.isEnabled = isEnable
             binding.address.isEnabled = isEnable
+            binding.nameRestaurant.isEnabled = isEnable
             binding.email.isEnabled = isEnable
             binding.phone.isEnabled = isEnable
             binding.password.isEnabled = isEnable
             binding.showPassword.isEnabled = isEnable
-            if (isEnable){
+            if (isEnable) {
                 binding.name.requestFocus()
             }
         }
@@ -66,28 +69,27 @@ class AdminProfileActivity : AppCompatActivity() {
     }
 
     private fun togglePasswordVisibility(passwordVisible: Boolean) {
-        if (passwordVisible){
+        if (passwordVisible) {
             binding.password.transformationMethod = null
-        }
-        else{
+        } else {
             binding.password.transformationMethod = PasswordTransformationMethod.getInstance()
         }
     }
 
     private fun fetchUserData() {
-        val currentUser = auth.currentUser
-        val userId =  currentUser?.uid
-        if(userId != null){
-            usersReference.child(userId).addValueEventListener(object : ValueEventListener{
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val userReference = database.getReference("user").child(userId)
+            usersReference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()){
-                        val user = snapshot.getValue(UserModel::class.java)
-
-                        binding.name.setText(user?.name)
-                        binding.address.setText(user?.address)
-                        binding.email.setText(user?.email)
+                    val user = snapshot.getValue(UserModel::class.java)
+                    if (user!= null) {
+                        binding.name.setText(user?.name ?: "Please add you name")
+                        binding.address.setText(user?.address ?: "Please add you address")
+                        binding.nameRestaurant.setText(user?.nameOfRestaurant ?: "Please add you name of restaurant")
+                        binding.email.setText(user?.email ?: "Please add you email")
                         binding.phone.setText(user?.phone ?: "Please add you phone")
-                        binding.password.setText(user?.password)
+                        binding.password.setText(user?.password ?: "Please add you password")
                     }
                 }
 

@@ -26,7 +26,6 @@ class AllItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         binding.imgBtnBack.setOnClickListener {
             finish()
         }
@@ -37,10 +36,12 @@ class AllItemActivity : AppCompatActivity() {
     private fun retrieveMenuItem() {
         database = FirebaseDatabase.getInstance()
         val foodRef: DatabaseReference = database.reference.child("menu")
-        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
+
+        foodRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 menuItems.clear()
-
+                val menuItemsCount = snapshot.childrenCount
+                binding.quantityAllFood.text = "Quantity: $menuItemsCount"
                 for (foodSnapshot in snapshot.children) {
                     val menuItem = foodSnapshot.getValue(AllItemMenu::class.java)
                     menuItem?.let {
@@ -66,16 +67,7 @@ class AllItemActivity : AppCompatActivity() {
     }
 
     private fun deleteMenuItems(position: Int) {
-        val menuItemDelete = menuItems[position]
-        val menuItemKey = menuItemDelete.key
-        val foodMenuReference = database.reference.child("menu").child(menuItemKey!!)
-        foodMenuReference.removeValue().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                menuItems.removeAt(position)
-                binding.menuAllItemRecyclerView.adapter?.notifyItemRemoved(position)
-            } else {
-                Toast.makeText(this, "item not Deleted", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener { }
+        menuItems.removeAt(position)
+        binding.menuAllItemRecyclerView.adapter?.notifyItemRemoved(position)
     }
 }

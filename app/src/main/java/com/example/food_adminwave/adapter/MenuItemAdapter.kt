@@ -1,6 +1,7 @@
 package com.example.food_adminwave.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ExpandableListView.OnChildClickListener
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.food_adminwave.DetailsItemMenuActivity
 import com.example.food_adminwave.databinding.ItemAllItemBinding
 import com.example.food_adminwave.model.AllItemMenu
 import com.google.firebase.auth.FirebaseAuth
@@ -46,6 +48,28 @@ class MenuItemAdapter(
 
     override fun getItemCount(): Int = menuList.size
     inner class AddItemViewHolder(private val binding: ItemAllItemBinding):RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if(position!= RecyclerView.NO_POSITION){
+                    openDetailsItemActivity(position)
+                }
+            }
+        }
+
+        private fun openDetailsItemActivity(position: Int) {
+            val menuItem = menuList[position]
+            val intent= Intent(context, DetailsItemMenuActivity::class.java).apply {
+                putExtra("menuItemId", menuItem.key)
+                putExtra("menuItemName", menuItem.foodName)
+                putExtra("menuItemPrice", menuItem.foodPrice)
+                putExtra("menuItemDescription", menuItem.foodDescription)
+                putExtra("menuItemImage", menuItem.foodImage)
+                putExtra("menuItemIngredient", menuItem.foodIngredient)
+            }
+            context.startActivity(intent)
+        }
+
         fun bind(position: Int) {
             binding.apply {
                 val menuItem = menuList[position]
@@ -54,8 +78,8 @@ class MenuItemAdapter(
                 cartFoodName.text = menuItem.foodName
                 cartPrice.text = menuItem.foodPrice
                 Glide.with(context).load(uri).into(imageFoodCart)
+                val itemPosition = adapterPosition
                 btnDeleteTrashCart.setOnClickListener {
-                    val itemPosition = adapterPosition
                     if (itemPosition != RecyclerView.NO_POSITION) {
                         deleteItem(itemPosition)
                     }
@@ -64,47 +88,21 @@ class MenuItemAdapter(
         }
 
         private fun deleteItem(position: Int) {
-            getUniqueKeyPosition(position) { uniqueKey ->
-                if (uniqueKey != null) {
-                    removeItem(position, uniqueKey)
-                }
-            }
-        }
-        private fun removeItem(position: Int, uniqueKey: String) {
-            if (uniqueKey != null) {
-                menuItemsReference.child(uniqueKey).removeValue().addOnSuccessListener {
-                    if (position >= 0 && position < menuList.size) {
-                        menuList.removeAt(position)
-                        Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
-
-                        notifyItemRemoved(position)
-                        notifyItemRangeChanged(position, menuList.size)
-
+            val menuIdToDelete = menuList[position].key
+            val menuRef = FirebaseDatabase.getInstance().getReference("menu")
+            if (menuIdToDelete != null) {
+                menuRef.child(menuIdToDelete).removeValue()
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Voucher deleted successfully", Toast.LENGTH_SHORT).show()
                     }
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Delete failed", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-
-        private fun getUniqueKeyPosition(position: Int, onComplete: (String?) -> Unit) {
-            menuItemsReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    var uniqueKey: String? = null
-                    snapshot.children.forEachIndexed { index, dataSnapshot ->
-                        if (index == position) {
-                            uniqueKey = dataSnapshot.key
-                            return@forEachIndexed
-                        }
+                    .addOnFailureListener {
+                        Toast.makeText(context, "Failed to delete voucher: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
-                    onComplete(uniqueKey)
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
+            }
+            // Remove the item from the list
+            menuList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, menuList.size)
         }
     }
 }

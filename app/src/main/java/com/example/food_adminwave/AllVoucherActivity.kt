@@ -38,10 +38,11 @@ class AllVoucherActivity : AppCompatActivity() {
     private fun retrieveVoucherItem() {
         database = FirebaseDatabase.getInstance()
         val voucherRef: DatabaseReference = database.reference.child("voucher")
-        voucherRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        voucherRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 voucherItems.clear()
-
+                val voucherItemsCount = snapshot.childrenCount
+                binding.quantityAllVoucher.text = "Quantity: $voucherItemsCount"
                 for (voucherSnapshot in snapshot.children) {
                     val voucherItem = voucherSnapshot.getValue(AllVoucher::class.java)
                     voucherItem?.let { voucherItems.add(it) }
@@ -66,18 +67,7 @@ class AllVoucherActivity : AppCompatActivity() {
     }
 
     private fun deleteVoucher(position: Int) {
-        val voucherItemDelede = voucherItems[position]
-        val voucherKey = voucherItemDelede.id
-        val foodMenuReference = database.reference.child("voucher").child(voucherKey!!)
-        foodMenuReference.removeValue().addOnCompleteListener{
-                task ->
-            if (task.isSuccessful){
-                voucherItems.removeAt(position)
-                binding.voucherAllItemRecyclerView.adapter?.notifyItemRemoved(position)
-            }
-            else{
-                Toast.makeText(this, "item not Deleted", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener {  }
+        voucherItems.removeAt(position)
+        binding.voucherAllItemRecyclerView.adapter?.notifyItemRemoved(position)
     }
 }
