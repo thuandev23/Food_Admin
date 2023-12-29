@@ -20,7 +20,6 @@ class AdminProfileActivity : AppCompatActivity() {
     // Initialize Firebase components
     private val auth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance()
-    private val usersReference = database.reference.child("user")
 
     private val binding: ActivityAdminProfileBinding by lazy {
         ActivityAdminProfileBinding.inflate(layoutInflater)
@@ -80,7 +79,7 @@ class AdminProfileActivity : AppCompatActivity() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
             val userReference = database.getReference("user").child(userId)
-            usersReference.child(userId).addValueEventListener(object : ValueEventListener {
+            userReference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(UserModel::class.java)
                     if (user!= null) {

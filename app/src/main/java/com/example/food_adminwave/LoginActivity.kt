@@ -140,14 +140,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
     //check if user  is already login
-    override fun onStart() {
+    /*override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
             startActivity((Intent(this, MainActivity::class.java)))
             finish()
         }
-    }
+    }*/
 
     private fun updateUI(user: FirebaseUser?) {
         startActivity((Intent(this, MainActivity::class.java)))

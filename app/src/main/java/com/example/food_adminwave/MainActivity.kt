@@ -59,12 +59,12 @@ class MainActivity : AppCompatActivity() {
         }
         binding.logOut.setOnClickListener {
             if (auth.currentUser != null) {
-                auth.signOut()
                 auth.addAuthStateListener { firebaseAuth ->
                     if (firebaseAuth.currentUser == null) {
                         startActivity(Intent(this, LoginActivity::class.java))
                     }
                 }
+                auth.signOut()
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                             listTotalPay.add(i)
                         }
                 }
-                binding.totalPay.text = listTotalPay.sum().toString() + "VNĐ"
+                binding.totalPay.text = listTotalPay.sum().toString() + " VNĐ"
             }
 
             override fun onCancelled(error: DatabaseError) {
