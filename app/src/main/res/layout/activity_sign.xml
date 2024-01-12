@@ -62,39 +62,31 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
-        android:text="Choose Your Location "
+        android:text="Add Location "
         android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+    <EditText
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:endIconDrawable="@drawable/arrow_down"
-        app:endIconTint="@color/black"
+        android:background="@drawable/edittextshape"
+        android:drawableLeft="@drawable/user"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:fontFamily="@font/lato"
+        android:hint="Address of Owner"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5">
-
-        <AutoCompleteTextView
-            android:id="@+id/listOfLocation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lato"
-            android:inputType="none"
-            android:background="@drawable/edittextshape"
-            android:text="Choose Location" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress1"
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -107,12 +99,12 @@
         android:fontFamily="@font/lato"
         android:hint="Name of Owner"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintEnd_toEndOf="@+id/address"
+        app:layout_constraintStart_toStartOf="@+id/address"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
 
     <EditText
-        android:id="@+id/editTextNameofRestaurant"
+        android:id="@+id/nameRestaurant"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -125,12 +117,12 @@
         android:fontFamily="@font/lato"
         android:hint="Name of Restaurant "
         android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress1" />
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -145,10 +137,10 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNameofRestaurant" />
+        app:layout_constraintTop_toBottomOf="@+id/nameRestaurant" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
@@ -156,16 +148,24 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/edittextshape"
         android:drawableLeft="@drawable/lock"
-        android:drawableRight="@drawable/eye"
         android:drawablePadding="15dp"
         android:ems="10"
         android:fontFamily="@font/lato"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
+    <ImageView
+        android:id="@+id/showPassword"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/eye"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintTop_toTopOf="@+id/password" />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCreateAcc"
         android:layout_width="152dp"
@@ -178,7 +178,7 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <TextView
         android:id="@+id/txtHasAcc"
