@@ -61,7 +61,6 @@
                 android:fontFamily="@font/lato"
                 android:text="5124124125"
                 android:textColor="@color/textColor"
-                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/textView21"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -72,10 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/lato"
-                android:text="VNĐ"
+                android:text="VND"
                 android:textColor="@color/textColor"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/foodPrice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/foodPrice" />
@@ -99,8 +96,6 @@
                 android:fontFamily="@font/lato"
                 android:text="8"
                 android:textColor="@color/textColor"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/textView27"
                 app:layout_constraintStart_toEndOf="@+id/textView27"
                 app:layout_constraintTop_toTopOf="@+id/textView27" />

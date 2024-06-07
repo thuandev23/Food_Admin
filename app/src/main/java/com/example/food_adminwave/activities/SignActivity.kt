@@ -1,18 +1,15 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
-import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.food_adminwave.databinding.ActivitySignBinding
 import com.example.food_adminwave.model.UserModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
@@ -62,6 +59,9 @@ class SignActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        binding.addAddress.setOnClickListener {
+            Toast.makeText(this, "make location", Toast.LENGTH_SHORT).show()
+        }
     }
     private fun togglePasswordVisibility(passwordVisible: Boolean) {
         if (passwordVisible){
@@ -96,6 +96,6 @@ class SignActivity : AppCompatActivity() {
         address = binding.address.text.toString()
         val user = UserModel(userName, nameOfRestaurant, email, password, address)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        database.child("user").child(userId).setValue(user)
+        database.child("accounts").child("admins").child(userId).setValue(user)
     }
 }

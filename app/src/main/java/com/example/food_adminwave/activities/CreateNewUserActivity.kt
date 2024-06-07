@@ -1,6 +1,5 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -78,6 +77,6 @@ class CreateNewUserActivity : AppCompatActivity() {
         password = binding.password.text.toString().trim()
         val user = UserModel(userName, email, password)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        database.child("user").child(userId).setValue(user)
+        database.child("accounts").child("users").child(userId).setValue(user)
     }
 }

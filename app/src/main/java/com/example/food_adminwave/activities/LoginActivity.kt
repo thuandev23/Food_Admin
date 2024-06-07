@@ -1,4 +1,4 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.food_adminwave.R
 import com.example.food_adminwave.databinding.ActivityLoginBinding
 import com.example.food_adminwave.model.UserModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
         val user = UserModel(email, password)
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
-            database.child("user").child(it).setValue(user)
+            database.child("accounts").child("admins").child(it).setValue(user)
         }
     }
 
@@ -140,14 +140,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
     //check if user  is already login
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
             startActivity((Intent(this, MainActivity::class.java)))
             finish()
         }
-    }*/
+    }
 
     private fun updateUI(user: FirebaseUser?) {
         startActivity((Intent(this, MainActivity::class.java)))

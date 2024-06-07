@@ -1,21 +1,12 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.example.food_adminwave.databinding.ActivityAddItemVoucherBinding
-import com.example.food_adminwave.databinding.ActivityDetailsItemMenuBinding
 import com.example.food_adminwave.databinding.ActivityDetailsItemVoucherBinding
-import com.example.food_adminwave.model.AllVoucher
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class DetailsItemVoucherActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsItemVoucherBinding

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:elevation="5dp"
     android:background="@color/white"
-    tools:context=".SignActivity">
+    tools:context=".activities.SignActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -56,13 +56,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/addAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
-        android:text="Add Location "
+        android:text="Click here to add quickly the location"
         android:textColor="@color/textColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -70,7 +70,8 @@
     <EditText
         android:id="@+id/address"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
+        android:minHeight="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
@@ -83,7 +84,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/addAddress" />
 
     <EditText
         android:id="@+id/name"

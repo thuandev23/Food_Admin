@@ -1,4 +1,4 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -57,7 +57,7 @@ class OutForDeliveryActivity : AppCompatActivity() {
     }
 
     private fun setDataIntoRecyclerView() {
-// Initialization list to hold customers name and payment status
+        // Initialization list to hold customers name and payment status
         val customerName = mutableListOf<String>()
         val moneyStatus = mutableListOf<Boolean>()
         for (order in listOfCompleteOrderList) {

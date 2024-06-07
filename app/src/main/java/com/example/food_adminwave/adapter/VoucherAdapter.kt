@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.food_adminwave.DetailsItemMenuActivity
-import com.example.food_adminwave.DetailsItemVoucherActivity
-import com.example.food_adminwave.databinding.ActivityAddItemVoucherBinding
-import com.example.food_adminwave.databinding.ActivityAllVoucherBinding
+import com.example.food_adminwave.activities.DetailsItemVoucherActivity
 import com.example.food_adminwave.databinding.DiscountItemBinding
 import com.example.food_adminwave.model.AllVoucher
 import com.google.firebase.database.DatabaseReference

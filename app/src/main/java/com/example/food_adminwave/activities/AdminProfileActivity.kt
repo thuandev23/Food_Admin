@@ -1,12 +1,10 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import android.widget.Toast
 import com.example.food_adminwave.databinding.ActivityAdminProfileBinding
 import com.example.food_adminwave.model.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +26,7 @@ class AdminProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        fetchUserData()
         binding.imgBtnBack.setOnClickListener {
             finish()
         }
@@ -64,7 +62,6 @@ class AdminProfileActivity : AppCompatActivity() {
                 binding.name.requestFocus()
             }
         }
-        fetchUserData()
     }
 
     private fun togglePasswordVisibility(passwordVisible: Boolean) {
@@ -78,7 +75,7 @@ class AdminProfileActivity : AppCompatActivity() {
     private fun fetchUserData() {
         val userId = auth.currentUser?.uid
         if (userId != null) {
-            val userReference = database.getReference("user").child(userId)
+            val userReference = database.getReference("accounts").child("admins")
             userReference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(UserModel::class.java)

@@ -1,4 +1,4 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +19,7 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
     private var listOfName: MutableList<String> = mutableListOf()
     private var listOfToTalPrice: MutableList<String> = mutableListOf()
     private var listOfImageFirstFoodOrder: MutableList<String> = mutableListOf()
+    private var listOfAddress: MutableList<String> = mutableListOf()
     private var listOfOrderItem: ArrayList<OrderDetails> = arrayListOf()
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseOrderDetails: DatabaseReference
@@ -33,12 +34,13 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
         }
         database = FirebaseDatabase.getInstance()
         databaseOrderDetails = database.reference.child("OrderDetails")
-        getOrderDatails()
+        getOrderDetails()
     }
 
-    private fun getOrderDatails() {
+    private fun getOrderDetails() {
         databaseOrderDetails.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                listOfOrderItem.clear()
                 for (orderSnapshot in snapshot.children) {
                     val orderDetails = orderSnapshot.getValue(OrderDetails::class.java)
                     orderDetails?.let {
@@ -46,11 +48,9 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
                     }
                 }
                 addDataListForRecyclerView()
-
             }
-
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@PendingItemActivity, "Error: $error", Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -63,6 +63,7 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
             orderItem.foodImages?.filterNot { it.isEmpty() }?.forEach {
                 listOfImageFirstFoodOrder.add(it)
             }
+            orderItem.address   ?.let { listOfAddress.add(it) }
         }
         setAdapter()
     }
@@ -70,7 +71,7 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
     private fun setAdapter() {
         binding.pendingOrdersRecyclerView.layoutManager = LinearLayoutManager(this)
         val adapter =
-            PendingItemAdapter(this, listOfName, listOfToTalPrice, listOfImageFirstFoodOrder, this)
+            PendingItemAdapter(this, listOfName, listOfToTalPrice, listOfImageFirstFoodOrder, listOfAddress, this)
         binding.pendingOrdersRecyclerView.adapter = adapter
     }
 
@@ -83,23 +84,31 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
 
     override fun onItemAcceptClickListener(position: Int) {
         // handle item acceptance and update database
+        database = FirebaseDatabase.getInstance()
         val childItemPushKey = listOfOrderItem[position].itemPushKey
         val clickItemOrderReference = childItemPushKey?.let {
             database.reference.child("OrderDetails").child(it)
         }
         clickItemOrderReference?.child("orderAccepted")?.setValue(true)
-        updateOrderAcceptStatus(position)
+            ?.addOnSuccessListener {
+                updateOrderAcceptStatus(position)
+            }?.addOnFailureListener {
+                Toast.makeText(this, "Order is not Accepted", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onItemDispatchClickListener(position: Int) {
         // handle item dispatch and update database
+        database = FirebaseDatabase.getInstance()
         val dispatchItemPushKey = listOfOrderItem[position].itemPushKey
         val dispatchItemOrderReference =
             database.reference.child("CompletedOrder").child(dispatchItemPushKey!!)
         dispatchItemOrderReference.setValue(listOfOrderItem[position])
             .addOnSuccessListener {
                 deletedThisItemFromOrderDetails(dispatchItemPushKey)
-            }.addOnFailureListener {  }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Order is not Dispatch", Toast.LENGTH_SHORT).show()
+            }
 
     }
 
@@ -116,10 +125,14 @@ class PendingItemActivity : AppCompatActivity(), PendingItemAdapter.OnItemClicke
         //update order acceptance in user's BuyHistory and OrderDetails
         val userIdOfClickedItem = listOfOrderItem[position].userUId
         val pushKeyOfClickedItem = listOfOrderItem[position].itemPushKey
-        val historyReference =
-            database.reference.child("user").child(userIdOfClickedItem!!).child("BuyHistory")
-                .child(pushKeyOfClickedItem!!)
-        historyReference.child("orderAccepted").setValue(true)
-        databaseOrderDetails.child(pushKeyOfClickedItem).child("orderAccepted").setValue(true)
+        if (userIdOfClickedItem != null && pushKeyOfClickedItem != null) {
+            val historyReference = database.reference.child("accounts")
+                    .child("users").child(userIdOfClickedItem)
+                    .child("BuyHistory").child(pushKeyOfClickedItem)
+            historyReference.child("orderAccepted").setValue(true)
+            databaseOrderDetails.child(pushKeyOfClickedItem).child("orderAccepted").setValue(true)
+        }else{
+            Toast.makeText(this, "User ID or Push Key is null ", Toast.LENGTH_SHORT).show()
+        }
     }
 }

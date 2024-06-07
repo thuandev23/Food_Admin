@@ -1,10 +1,9 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.food_adminwave.adapter.OrderDetailsAdapter
-import com.example.food_adminwave.adapter.PendingItemAdapter
 import com.example.food_adminwave.databinding.ActivityOrderDetailsBinding
 import com.example.food_adminwave.model.OrderDetails
 

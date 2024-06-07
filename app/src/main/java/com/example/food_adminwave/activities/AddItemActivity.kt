@@ -1,18 +1,14 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.food_adminwave.databinding.ActivityAddItemBinding
 import com.example.food_adminwave.model.AllItemMenu
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.database
 import com.google.firebase.storage.FirebaseStorage
 
 class AddItemActivity : AppCompatActivity() {
@@ -21,7 +17,7 @@ class AddItemActivity : AppCompatActivity() {
     private lateinit var foodName: String
     private lateinit var foodPrice: String
     private lateinit var foodDescription: String
-    private var foodImage: Uri? = null
+    private lateinit var foodImage: Uri
     private lateinit var foodIngredient: String
 
     // Firebase

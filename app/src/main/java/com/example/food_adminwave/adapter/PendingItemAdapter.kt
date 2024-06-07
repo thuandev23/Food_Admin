@@ -14,6 +14,7 @@ class PendingItemAdapter(
     private val customerNames: MutableList<String>,
     private val quantity: MutableList<String>,
     private val foodImage: MutableList<String>,
+    private val address: MutableList<String>,
     private val itemClicked: OnItemClicked,
 ) : RecyclerView.Adapter<PendingItemAdapter.PendingItemViewHolder>() {
 
@@ -31,42 +32,51 @@ class PendingItemAdapter(
         return PendingItemViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PendingItemAdapter.PendingItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PendingItemViewHolder, position: Int) {
         holder.bind(position)
     }
 
     override fun getItemCount(): Int = customerNames.size
+
     inner class PendingItemViewHolder(private val binding: PendingordersItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         private var isAccept = false
+
         fun bind(position: Int) {
             binding.apply {
                 nameFoodPending.text = customerNames[position]
                 priceFoodPending.text = quantity[position]
-                var uri = Uri.parse(foodImage[position])
+                val uri = Uri.parse(foodImage[position])
                 Glide.with(context).load(uri).into(imageFoodPending)
+                addressFoodPending.text = address[position]
+
                 btnAcceptOrNot.apply {
-                    if (!isAccept) {
-                        text = "Accept"
-                    } else {
-                        text = "Dispatch"
-                    }
+                    text = if (!isAccept) "Accept" else "Dispatch"
                     setOnClickListener {
                         if (!isAccept) {
                             text = "Dispatch"
                             isAccept = true
-                            showToast("Orders is accepted !")
-                            itemClicked.onItemAcceptClickListener(position)
+                            showToast("Order is accepted!")
+                            itemClicked.onItemAcceptClickListener(adapterPosition)
                         } else {
-                            customerNames.removeAt(adapterPosition)
-                            notifyItemRemoved(adapterPosition)
-                            showToast("Order is dispatched !")
-                            itemClicked.onItemDispatchClickListener(position)
+                            val currentPosition = adapterPosition
+                            if (currentPosition != RecyclerView.NO_POSITION) {
+                                customerNames.removeAt(currentPosition)
+                                notifyItemRemoved(currentPosition)
+                                showToast("Order is dispatched!")
+                                itemClicked.onItemDispatchClickListener(currentPosition)
+                            }else{
+                                showToast("Error! + $currentPosition")
+                            }
                         }
                     }
                 }
-                itemView.setOnClickListener{
-                    itemClicked.onItemClickListener(position)
+
+                itemView.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        itemClicked.onItemClickListener(adapterPosition)
+                    }
                 }
             }
         }

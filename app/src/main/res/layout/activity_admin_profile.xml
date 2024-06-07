@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminProfileActivity">
+    tools:context=".activities.AdminProfileActivity">
 
     <TextView
         android:id="@+id/textView12"
@@ -118,7 +118,7 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:minHeight="56dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
                 android:fontFamily="@font/lato"

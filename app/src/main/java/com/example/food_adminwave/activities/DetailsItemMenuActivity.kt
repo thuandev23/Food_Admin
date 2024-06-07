@@ -1,4 +1,4 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.text.Editable
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.food_adminwave.databinding.ActivityDetailsItemMenuBinding
-import com.example.food_adminwave.model.AllItemMenu
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 

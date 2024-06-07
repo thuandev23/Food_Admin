@@ -1,9 +1,8 @@
-package com.example.food_adminwave
+package com.example.food_adminwave.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.food_adminwave.databinding.ActivityMainBinding
 import com.example.food_adminwave.model.OrderDetails
 import com.google.firebase.auth.FirebaseAuth
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun wholeTimeEarning() {
-        var listTotalPay = mutableListOf<Int>()
+        val listTotalPay = mutableListOf<Int>()
         completeOrderReference = FirebaseDatabase.getInstance().reference.child("CompletedOrder")
         completeOrderReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                             listTotalPay.add(i)
                         }
                 }
-                binding.totalPay.text = listTotalPay.sum().toString() + " VNĐ"
+                binding.totalPay.text = listTotalPay.sum().toString()+"VND"
             }
 
             override fun onCancelled(error: DatabaseError) {
